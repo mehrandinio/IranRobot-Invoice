@@ -9,7 +9,7 @@ jobs:
     permissions:
       contents: read
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - uses: subosito/flutter-action@v2
         with:
           channel: stable
@@ -18,6 +18,8 @@ jobs:
         run: python3 scripts/fetch_fonts.py
       - name: Generate Android platform
         run: flutter create --platforms=android --project-name=iranrobot_invoice --org=ir.iranrobot .
+      - name: Remove Flutter-generated template test
+        run: rm -f test/widget_test.dart
       - run: flutter pub get
       - run: flutter analyze --no-fatal-infos
       - run: flutter test
